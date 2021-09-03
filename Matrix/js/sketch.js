@@ -1,5 +1,6 @@
 var streams = [];
 let symbolSize = 10;
+let run = true;
 
 
 function setup() {
@@ -44,7 +45,10 @@ function Car(x,y,speed,first) {
 	}
 }
 
-
+function keyPressed() {
+	run = !run;
+	if (run) {loop();} else { noLoop();}
+}
 
 function Stream() {
 	this.symbols = [];
