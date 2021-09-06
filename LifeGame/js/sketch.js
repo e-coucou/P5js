@@ -14,11 +14,12 @@ function fillGrid() {
 }
 
 let grid, next;
-let lignes, colonnes, res=2;
+let lignes, colonnes, res=5;
 
 function setup() {
-	createCanvas(600,400);
-	lignes=height/res; colonnes=width/res;
+	// createCanvas(800,400);
+	createCanvas(window.innerWidth,window.innerHeight);
+	lignes=round(height/res); colonnes=round(width/res);
 
 	grid = make2DArray(colonnes,lignes);
 

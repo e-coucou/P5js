@@ -1,7 +1,10 @@
 var streams = [];
-let symbolSize = 10;
+let symbolSize = 12;
 let run = true;
-
+let delay = 100;
+let fin =false;
+let supp_limite = 1;
+let supp = true;
 
 function setup() {
 	createCanvas(window.innerWidth, window.innerHeight);
@@ -19,10 +22,39 @@ function setup() {
 
 
 function draw() {
+	let to_supp_symbol = [];
+	let to_supp_stream = [];
+	let index=0;
 	background(0,150);
 	streams.forEach(function(stream) {
 		stream.render();
+		if (fin && supp) {
+			let limit= stream.symbols.length;
+			if (limit >0) {
+				if (stream.symbols[0].y > height/supp_limite) {
+					to_supp_symbol.push(index);
+				} 
+			} else { 
+				to_supp_stream.push(index);
+			}
+		}
+		index++;
 	});
+	delay--;
+	if (delay == 0) {
+		fin = true;
+	}
+	if (to_supp_symbol.length > 0) {
+		to_supp_symbol.forEach(function(id) {
+			streams[id].symbols.splice(0,1);
+		})
+	}
+	if (to_supp_stream.length > 0) {
+		to_supp_stream.forEach(function(id) {
+			streams.splice(id,1);
+		})
+	}
+	if (streams.length < 20) { supp_limite = 2; supp = false;}
 }
 
 
@@ -41,19 +73,19 @@ function Car(x,y,speed,first) {
 	}
 
 	this.rain = function() {
-		this.y = this.y >= height ? 0 :  this.y+this.speed;
+		this.y = this.y >= (height/supp_limite) ? 0 :  this.y+this.speed;
 	}
 }
 
 function keyPressed() {
 	run = !run;
-	if (run) {loop();} else { noLoop();}
+	if (run) {loop(); delay=100;} else { end = true; } //noLoop();}
 }
 
 function Stream() {
 	this.symbols = [];
 	this.nbsymbols = round(random(5,50));
-	this.speed = random(1,10);
+	this.speed = random(3,10);
 
 	this.genCar = function(x,y) {
 		let first = (round(random(0,4)) == 1);
