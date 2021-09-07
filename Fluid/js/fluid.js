@@ -1,6 +1,6 @@
-let N = 64;
+let N = 256;
 let iter = 4;
-const SCALE = 5;
+const SCALE = 2;
 
 
 function IX(x,y) {

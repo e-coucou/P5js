@@ -25,6 +25,7 @@ function mousePressed() {
 			}
 		}
 	}
+	show();
 }
 
 function win() {
@@ -71,9 +72,14 @@ function setup() {
 		}
 	}
 	resteDiv = createDiv();
+	noLoop();
+	show();
 }
 
 function draw() {
+}
+
+function show() {
 	background(255);
 	for(let i = 0;i<colonnes;i++){
 		for(let j=0;j<lignes;j++){

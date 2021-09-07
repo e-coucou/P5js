@@ -12,18 +12,18 @@ function cell(i,j,w) {
 cell.prototype.show = function () {
 
 	stroke(0);
-	fill(233);
+	fill('#6BFAAE');
 	rect(this.x,this.y,this.w,this.w);
 	if (this.open) {
 		if (this.bombe) {
-			fill(gagne?'#0000FF':'#FF0000');
+			fill(gagne?'#2C5BD1':'#B50563');
 			circle(this.x+this.w/2,this.y+this.w/2,this.w/2);
 		} else {
 			fill(255);
 			rect(this.x,this.y,this.w,this.w);
 			fill(0);
 			if (this.cpt>0) {
-				textAlign(CENTER);
+				textAlign(CENTER,CENTER);
 				text(this.cpt,this.x+this.w/2,this.y+this.w/2);
 			}
 		}

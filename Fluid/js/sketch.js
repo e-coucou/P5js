@@ -16,8 +16,15 @@ function mouseDragged() {
 	fluid.addVelocity( i, j, amountX, amountY);
 }
 
+function cigarette() {
+	fluid.addDensity(2,height/2,200.0);
+	fluid.addVelocity(2,height/2,100.0,0);
+}
+
 function draw() {
 	background(0);
+	fluid.addDensity(2,height/2/SCALE,random(200,400));
+	fluid.addVelocity(2,height/2/SCALE,1.5,-0.2);
 	fluid.step();
 	fluid.renderD();
 }
