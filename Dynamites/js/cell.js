@@ -7,19 +7,24 @@ function cell(i,j,w) {
 	this.bombe= false;
 	this.open=false;
 	this.cpt = 0;
+	this.flag = false;
 }
 
 cell.prototype.show = function () {
 
 	stroke(0);
-	fill('#6BFAAE');
+	if (this.flag) {
+		fill('#007F7F');
+	} else { 
+		fill('#6BFAAE');
+	}
 	rect(this.x,this.y,this.w,this.w);
 	if (this.open) {
 		if (this.bombe) {
 			fill(gagne?'#2C5BD1':'#B50563');
 			circle(this.x+this.w/2,this.y+this.w/2,this.w/2);
 		} else {
-			fill(255);
+			fill(233);
 			rect(this.x,this.y,this.w,this.w);
 			fill(0);
 			if (this.cpt>0) {

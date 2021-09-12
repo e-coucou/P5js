@@ -7,20 +7,35 @@ function make2DArray(c,l) {
 }
 
 let grid;
-let colonnes, lignes, res=20;
+let colonnes, lignes, res=30;
 let nbBombe;
 let reste;
 let resteDiv;
 let gagne=false;
 
+function keyPressed() {
+ if (key == ' ') {
+		for(let i = 0;i<colonnes;i++){
+			for(let j=0;j<lignes;j++){
+				let flag = grid[i][j].val(mouseX,mouseY);
+				if (flag) {
+					grid[i][j].flag = !grid[i][j].flag;
+				}
+			}
+		}
+	}
+	show();
+}
 function mousePressed() {
-	for(let i = 0;i<colonnes;i++){
-		for(let j=0;j<lignes;j++){
-			let open = grid[i][j].val(mouseX,mouseY);
-			if (open) {
-				grid[i][j].ouvre();
-				if (grid[i][j].bombe) {
-					gameOver();
+	if (mouseButton == LEFT) {
+		for(let i = 0;i<colonnes;i++){
+			for(let j=0;j<lignes;j++){
+				let open = grid[i][j].val(mouseX,mouseY);
+				if (open) {
+					grid[i][j].ouvre();
+					if (grid[i][j].bombe) {
+						gameOver();
+					}
 				}
 			}
 		}
@@ -46,14 +61,15 @@ function gameOver() {
 
 function setup() {
 	createCanvas(800,400);
-	colonnes=width/res;
-	lignes=height/res;
+	colonnes=floor(width/res);
+	lignes=floor(height/res);
 	reste = colonnes*lignes;
 	nbBombe = floor(0.1*reste);
 	grid = make2DArray(colonnes,lignes);
 	for(let i = 0;i<colonnes;i++){
 		for(let j=0;j<lignes;j++){
 			grid[i][j]=new cell(i,j,res);
+			grid[i][j].flag=false;
 		}
 	}
 	let n=0;
