@@ -1,0 +1,18 @@
+class Particule {
+	Point(x,y,etat) {
+		this.x = x;
+		this.y = y;
+		this.etat = false;
+	}
+	
+	show() {
+		noFill();
+		strokeWeight(3);
+		if( this.etat ) {
+			stroke(10);
+		} else {
+			stroke(255);
+		}
+		point(this.x,this.y);
+	}
+}
