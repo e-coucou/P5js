@@ -1,11 +1,8 @@
-let qt;
-let total = 100;
+let total = 1000;
 let particules = [];
 
 function setup() {
-	createCanvas(400,400);
-	let boundary = new Rectangle(200,200,200,200);
-	qt = new Quadtree(boundary,4);
+	createCanvas(900,600);
 	// for(let i = 0; i<500; i++) {
 		// let p = new Point(random(width),random(height));
 		// qt.insert(p);
@@ -22,18 +19,27 @@ function draw() {
 		// qt.insert(m);
 	// }
 	background(0);
+	let boundary = new Rectangle(width/2,height/2,width/2,height/2);
+	let qt = new Quadtree(boundary,4);
 	for (let i= 0; i<total;i++) {
 		let p = new Point(particules[i].x,particules[i].y,particules[i]);
 		qt.insert(p);
-		let range = new Rectangle(particules[i].x,particules[i].y,3,3); 
-		rect(range.x,range.y,range.w*2,range.h*2);
-		let points = qt.query(range);
-		for (let it of points) {
-			it.parent.etat=true;
-		}
-		console.log(points);
 		particules[i].show();
 		particules[i].move();
+	}
+	
+	for (let p of particules){
+		let range = new Rectangle(p.x,p.y,3,3); 
+//		rect(range.x,range.y,range.w*2,range.h*2);
+		p.etat=false;
+	let points = [];
+		points = qt.query(range);
+		if (points.length > 1) {// particules[i].etat = true;
+			for (let it of points) {
+				it.parent.etat=true;
+				p.show();
+			}
+		}
 	}
 	// qt.show();
 
