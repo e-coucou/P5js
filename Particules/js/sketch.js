@@ -32,12 +32,12 @@ function draw() {
 		let range = new Rectangle(p.x,p.y,3,3); 
 //		rect(range.x,range.y,range.w*2,range.h*2);
 		p.etat=false;
-	let points = [];
+		let points = [];
 		points = qt.query(range);
 		if (points.length > 1) {// particules[i].etat = true;
 			for (let it of points) {
 				it.parent.etat=true;
-				p.show();
+				// p.show();
 			}
 		}
 	}

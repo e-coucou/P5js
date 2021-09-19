@@ -71,7 +71,7 @@ class Quadtree {
 		} else {
 			for (let p of this.points) {
 				if (range.contains(p)) {
-					found.push(p);  // modifier pour n'avoir que les data client
+					found.push(p.parent);
 				}
 			}
 			if (this.divided) {
@@ -85,6 +85,7 @@ class Quadtree {
 	}
 
 	show() {
+		push()
 		rectMode(CENTER);
 		stroke(255);
 		strokeWeight(1);
@@ -101,5 +102,6 @@ class Quadtree {
 		for( let p of this.points) {
 			point(p.x,p.y);
 		}
+		pop();
 	}
 }

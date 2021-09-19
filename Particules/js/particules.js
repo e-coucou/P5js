@@ -17,8 +17,8 @@ class Particule {
 	}
 	
 	move() {
-		this.x = this.x + random(-2,2);
-		this.y = this.y + random(-2,2);
+		this.x = this.x + random(-1,1);
+		this.y = this.y + random(-1,1);
 		
 	}
 }
