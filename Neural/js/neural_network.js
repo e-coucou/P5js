@@ -76,7 +76,6 @@ class NeuralNetwork {
 
 		let h_i = Matrix.multiply(this.wih,input);
 		h_i.add(this.bh);
-		h_i.print();
 		h_i.map(sigmoid);
 		// h_i.print();
 		let o_i = Matrix.multiply(this.who,h_i);
