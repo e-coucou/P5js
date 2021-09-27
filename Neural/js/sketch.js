@@ -1,12 +1,12 @@
 
 let nn = new NeuralNetwork(2,2,1);
 
-// let training_data = [
-// 		{ input: nj.array([[1],[0]]), output: nj.array([[1]])},
-// 		{ input: nj.array([[0],[1]]), output: nj.array([[1]])},
-// 		{ input: nj.array([[0],[0]]), output: nj.array([[0]])},
-// 		{ input: nj.array([[1],[1]]), output: nj.array([[0]])}
-// 	];
+let training_data_std = [
+		{ input: nj.array([[1],[0]]), output: nj.array([[1]])},
+		{ input: nj.array([[0],[1]]), output: nj.array([[1]])},
+		{ input: nj.array([[0],[0]]), output: nj.array([[0]])},
+		{ input: nj.array([[1],[1]]), output: nj.array([[0]])}
+	];
 let training_data = [
 		{ input: [1,0], output: [1]},
 		{ input: [0,1], output: [1]},
@@ -32,6 +32,8 @@ function setup() {
 	for (let i = 0; i< 10; i++) {
 		let data = random(training_data)
 		nn.train_EP(data.input,data.output);
+		// let data = random(training_data_std)
+		// nn.train2(data.input,data.output);
 	}
 
 	// console.log(nn.feedforward2(nj.array([[1],[0]])).selection.data);

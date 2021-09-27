@@ -84,7 +84,8 @@ class NeuralNetwork {
 
 		let o_e = Matrix.subtract(answer,o_i);
 		let whoT = this.who.transpose();
-		// this.who.print();whoT.print();
+		// this.who.print();
+		// whoT.print();
 		let h_e = Matrix.multiply(whoT,o_e);
 		o_i.map(dsigmoid);
 		let g_o = Matrix.multiply(o_i,o_e);
@@ -93,16 +94,18 @@ class NeuralNetwork {
 		h_i.map(dsigmoid);
 		h_i.print();
 		h_e.print();
-		let g_h = Matrix.multiply(h_i,h_e);
+		let g_h = h_i;
+		g_h.print();
+		g_h.multiply(h_e);
+		g_h.print();
 		g_h.multiply(this.learnbing_rate);
-		let h_iT = h_i.transpose();
+		let h_oT = h_i.transpose();
 		let d_o = Matrix.multiply(g_o,h_oT);
-		this.weight_ho.add(d_o);
+		this.who.add(d_o);
 		let inputT = input.transpose();
 		let d_h = Matrix.multiply(g_h,inputT);
-		this.weight_ih.add(d_h);
-
-
+		this.wih.add(d_h);
+this.wih.print();
 	}
 
 	train2(input,answer) {
