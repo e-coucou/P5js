@@ -16,10 +16,10 @@ let training_data = [
 
 function setup() {
 
-	let input = nj.array([[1],[0]]);
-	let epI = [1,0];
-	let guess = nn.feedforward_EP(epI);
-	guess.print();
+	// let input = nj.array([[1],[0]]);
+	// let epI = [1,0];
+	// let guess = nn.feedforward_EP(epI);
+	// guess.print();
 	// input.reshape(2,1);
 	// input.set(0,0,1);
 	// input.set(1,0,0);
@@ -29,12 +29,19 @@ function setup() {
 
 	// let output = nn.feedforward(input);
 	// console.log(output);
-	for (let i = 0; i< 10; i++) {
+	for (let i = 0; i< 3; i++) {
 		let data = random(training_data)
 		nn.train_EP(data.input,data.output);
 		// let data = random(training_data_std)
 		// nn.train2(data.input,data.output);
 	}
+/* 	console.log(nn.who.print());
+	console.log(nn.wih.print());
+	console.log(nn.feedforward_EP(training_data[0].input).matrix[0]);
+	console.log(nn.feedforward_EP(training_data[1].input).matrix[0]);
+	console.log(nn.feedforward_EP(training_data[2].input).matrix[0]);
+	console.log(nn.feedforward_EP(training_data[3].input).matrix[0]);
+ */
 
 	// console.log(nn.feedforward2(nj.array([[1],[0]])).selection.data);
 	// console.log(nn.feedforward2(nj.array([[0],[1]])).selection.data);

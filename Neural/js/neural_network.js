@@ -92,20 +92,22 @@ class NeuralNetwork {
 		g_o.multiply(this.learnbing_rate);
 
 		h_i.map(dsigmoid);
-		h_i.print();
-		h_e.print();
+		// h_i.print();
+		// h_e.print();
 		let g_h = h_i;
-		g_h.print();
+		// g_h.print();
 		g_h.multiply(h_e);
-		g_h.print();
+		// g_h.print();
 		g_h.multiply(this.learnbing_rate);
 		let h_oT = h_i.transpose();
 		let d_o = Matrix.multiply(g_o,h_oT);
+		d_o.print();
 		this.who.add(d_o);
 		let inputT = input.transpose();
 		let d_h = Matrix.multiply(g_h,inputT);
+		d_h.print();
 		this.wih.add(d_h);
-this.wih.print();
+// this.wih.print();
 	}
 
 	train2(input,answer) {
