@@ -1,50 +1,72 @@
 
-let nn = new NeuralNetwork(2,2,1);
+// let nn = new NeuralNetwork(2,5,1);
+let nnFx = new NeuralNetwork(2,2,1);
+let cpt = 0;
+const nbT = 10;
+let trainings = [];
 
-let training_data_std = [
-		{ input: nj.array([[1],[0]]), output: nj.array([[1]])},
-		{ input: nj.array([[0],[1]]), output: nj.array([[1]])},
-		{ input: nj.array([[0],[0]]), output: nj.array([[0]])},
-		{ input: nj.array([[1],[1]]), output: nj.array([[0]])}
-	];
-let training_data = [
-		{ input: [1,0], output: [1]},
-		{ input: [0,1], output: [1]},
-		{ input: [1,1], output: [0]},
-		{ input: [0,0], output: [0]},
-	];
+// let training_data = [
+// 		{ input: [1,0], output: [1]},
+// 		{ input: [0,1], output: [1]},
+// 		{ input: [1,1], output: [0]},
+// 		{ input: [0,0], output: [0]},
+// 	];
 
+function f(x) {
+	return (pow(x/200,2)*100);
+}
+function answer(x,y) {
+	if (y>f(x)) { return 1; } else { return -1;}
+}
+
+function gen_item() {
+	let x = random(width);
+	let y = random(height);
+	let a = answer(x,y);
+	return ({inputs: [x,y], output:[a]});
+}
 function setup() {
 
-	// let input = nj.array([[1],[0]]);
-	// let epI = [1,0];
-	// let guess = nn.feedforward_EP(epI);
-	// guess.print();
-	// input.reshape(2,1);
-	// input.set(0,0,1);
-	// input.set(1,0,0);
-	// let input = math.ones(2,1);
-	// input.subset(math.index(0,0),1);
-	// input.subset(math.index(1,0),0);
+	createCanvas(400,400);
 
-	// let output = nn.feedforward(input);
-	// console.log(output);
-	for (let i = 0; i< 3; i++) {
-		let data = random(training_data)
-		nn.train_EP(data.input,data.output);
-		// let data = random(training_data_std)
-		// nn.train2(data.input,data.output);
+	// for (let i = 0; i< nbT; i++) {
+	// 	let data = random(training_data)
+	// 	nn.train_EP(data.input,data.output);
+	// }
+	// console.log(training_data[0].input,training_data[0].output,nn.feedforward_EP(training_data[0].input).matrix[0]);
+	// console.log(training_data[1].input,training_data[1].output,nn.feedforward_EP(training_data[1].input).matrix[0]);
+	// console.log(training_data[2].input,training_data[2].output,nn.feedforward_EP(training_data[2].input).matrix[0]);
+	// console.log(training_data[3].input,training_data[3].output,nn.feedforward_EP(training_data[3].input).matrix[0]);
+	for (let j=0;j<nbT;j++) {
+		let it = gen_item();
+		nnFx.train_EP(it.inputs, it.output);
+		console.log(nnFx.wih.matrix);
+	} 
+}
+
+
+function a_draw() {
+	if(cpt < 10) { background(51); }
+	stroke(200,255,0);
+	for(let i=0; i<width;i++) {
+		line(i,f(i),i+1,f(i+1));
 	}
-/* 	console.log(nn.who.print());
-	console.log(nn.wih.print());
-	console.log(nn.feedforward_EP(training_data[0].input).matrix[0]);
-	console.log(nn.feedforward_EP(training_data[1].input).matrix[0]);
-	console.log(nn.feedforward_EP(training_data[2].input).matrix[0]);
-	console.log(nn.feedforward_EP(training_data[3].input).matrix[0]);
- */
+	// frameRate(10);
 
-	// console.log(nn.feedforward2(nj.array([[1],[0]])).selection.data);
-	// console.log(nn.feedforward2(nj.array([[0],[1]])).selection.data);
-	// console.log(nn.feedforward2(nj.array([[1],[1]])).selection.data);
-	// console.log(nn.feedforward2(nj.array([[0],[0]])).selection.data);
+	// let x= floor(random(width));
+	// let y= floor(random(height));
+	// stroke(255); noFill();
+	// circle(x,y,4);
+	let item = gen_item();
+	trainings.push(item);
+	console.log(nnFx.feedforward_EP(item.inputs).matrix[0]);
+	stroke(255);
+	for( let i = 0; i<cpt;i++) {
+		let guess = nnFx.feedforward_EP(trainings[i].inputs).matrix[0];
+		console.log(trainings[i]);
+		console.log(guess);
+		if (guess>0) {noFill();} else {fill(255);}
+		circle(trainings[i].inputs[0],trainings[i].inputs[1],4);
+	}
+	cpt++; if (cpt > 10) noLoop();
 }

@@ -97,6 +97,16 @@ map(fct) {
 		}
 	}
 }
+static map(a,fct) {
+	let result = new Matrix(a.rows,a.cols);
+	for(let i =0;i<result.rows;i++) {
+		for(let j=0;j<result.cols;j++) {
+			let v = a.matrix[i][j];
+			result.matrix[i][j] = fct(v);
+		}
+	}
+	return result;
+}
 
 static fromArray(a) {
 	let result = new Matrix(a.length,1);
