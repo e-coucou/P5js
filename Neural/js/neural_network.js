@@ -13,21 +13,24 @@ class NeuralNetwork {
 		this.bh.randomize();
 		this.bo.randomize();
 //--
-		this.learnbing_rate = 0.1;
+		this.learnbing_rate = 0.2;
 	}
-
+	
+	setLR(lr) {
+		this.learnbing_rate = lr;
+	}
 	feedforward_EP(a) {
 		let input = Matrix.fromArray(a);
 		let h_i = Matrix.multiply(this.wih,input);
 		h_i.add(this.bh);
-		h_i.map(sigmoid);
+		let h_o = Matrix.map(h_i,sigmoid);
 		// h_i.print();
-		let o_i = Matrix.multiply(this.who,h_i);
+		let o_i = Matrix.multiply(this.who,h_o);
 		o_i.add(this.bo);
-		o_i.map(sigmoid);
+		let output = Matrix.map(o_i,sigmoid);
 		
-		return o_i;
-	}
+		return output;
+s	}
 
 	train_EP(a,b) {
 		// transforme array en matrice
@@ -42,9 +45,12 @@ class NeuralNetwork {
 		let outputs = Matrix.multiply(this.who,hidden);
 		outputs.add(this.bo);
 		outputs.map(sigmoid);
+
+		// console.table(outputs.matrix);
+		// console.table(this.feedforward_EP(a).matrix);
+
 		//calculate error output
 		let output_error = Matrix.subtract(answer,outputs);
-		console.log(output_error);
 
 		// caculate gradient output
 		let gradients = Matrix.map(outputs,dsigmoid);
@@ -52,7 +58,7 @@ class NeuralNetwork {
 		gradients.multiply(this.learnbing_rate);
 
 		//calculate delta
-		let hiddenT = hidden.transpose();
+		let hiddenT = Matrix.transpose(hidden);
 		let delta_ho = Matrix.multiply(gradients,hiddenT);
 		// adjust the weigth by delta
 		this.who.add(delta_ho);
@@ -60,7 +66,7 @@ class NeuralNetwork {
 		this.bo.add(gradients);
 
 		//calculate the hidden error
-		let whoT = this.who.transpose();
+		let whoT = Matrix.transpose(this.who);
 		let hidden_error = Matrix.multiply(whoT,output_error);
 		//calculate hidden gradient
 		let hidden_gradient = Matrix.map(hidden,dsigmoid);
@@ -68,7 +74,7 @@ class NeuralNetwork {
 		hidden_gradient.multiply(this.learnbing_rate);
 
 		// calculate input hidden deltas
-		let inputT = inputs.transpose();
+		let inputT = Matrix.transpose(inputs);
 		let delta_ih = Matrix.multiply(hidden_gradient,inputT);
 		this.wih.add(delta_ih);
 		this.bh.add(hidden_gradient);

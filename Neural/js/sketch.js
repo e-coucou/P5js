@@ -1,8 +1,8 @@
 
 // let nn = new NeuralNetwork(2,5,1);
-let nnFx = new NeuralNetwork(2,2,1);
+let nnFx = new NeuralNetwork(2,7,1);
 let cpt = 0;
-const nbT = 10;
+const nbT = 50000;
 let trainings = [];
 
 // let training_data = [
@@ -13,10 +13,11 @@ let trainings = [];
 // 	];
 
 function f(x) {
-	return (pow(x/200,2)*100);
+	// return (pow(x/200,2)*100);
+	return 2*x;
 }
 function answer(x,y) {
-	if (y>f(x)) { return 1; } else { return -1;}
+	if (y>f(x)) { return 1; } else { return 0;}
 }
 
 function gen_item() {
@@ -40,13 +41,12 @@ function setup() {
 	for (let j=0;j<nbT;j++) {
 		let it = gen_item();
 		nnFx.train_EP(it.inputs, it.output);
-		console.log(nnFx.wih.matrix);
 	} 
 }
 
 
-function a_draw() {
-	if(cpt < 10) { background(51); }
+function draw() {
+	if(cpt < 1000) { background(51); }
 	stroke(200,255,0);
 	for(let i=0; i<width;i++) {
 		line(i,f(i),i+1,f(i+1));
@@ -59,14 +59,20 @@ function a_draw() {
 	// circle(x,y,4);
 	let item = gen_item();
 	trainings.push(item);
-	console.log(nnFx.feedforward_EP(item.inputs).matrix[0]);
+	// more trainings ...
+	for (let j=0;j<1000;j++) {
+		let it = gen_item();
+		nnFx.train_EP(it.inputs, it.output);
+	} 
+	
+	// console.log(item,nnFx.feedforward_EP(item.inputs).matrix[0]);
 	stroke(255);
 	for( let i = 0; i<cpt;i++) {
 		let guess = nnFx.feedforward_EP(trainings[i].inputs).matrix[0];
-		console.log(trainings[i]);
-		console.log(guess);
-		if (guess>0) {noFill();} else {fill(255);}
+		// console.log(trainings[i]);
+		// console.log(guess);
+		if (guess>0.5) {noFill();} else {fill(255);}
 		circle(trainings[i].inputs[0],trainings[i].inputs[1],4);
 	}
-	cpt++; if (cpt > 10) noLoop();
+	cpt++; if (cpt > 1000) noLoop();
 }

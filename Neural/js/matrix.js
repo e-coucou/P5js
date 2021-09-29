@@ -74,16 +74,16 @@ add(n) {
 randomize() {
 	for(let i =0;i<this.rows;i++) {
 		for(let j=0;j<this.cols;j++) {
-			this.matrix[i][j] = (Math.random()*2-1);
+			this.matrix[i][j] = (Math.random()*20-10);
 		}
 	}
 }
 
-transpose() {
-	let result = new Matrix(this.cols,this.rows);
-	for (let i=0; i<this.rows;i++) {
-		for (let j=0;j<this.cols;j++) {
-			result.matrix[j][i] = this.matrix[i][j];
+static transpose(a) {
+	let result = new Matrix(a.cols,a.rows);
+	for (let i=0; i<a.rows;i++) {
+		for (let j=0;j<a.cols;j++) {
+			result.matrix[j][i] = a.matrix[i][j];
 		}
 	}
 	return result;
