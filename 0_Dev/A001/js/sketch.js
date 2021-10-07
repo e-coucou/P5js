@@ -2,11 +2,12 @@ let result;
 let t, c;
 let mn;
 let checkB, startB;
+let easeB, easy=true;
 let liste;
  
-function ease(p) {
-  return 3*p*p - 2*p*p*p;
-}
+// function ease(p) {
+//   return 3*p*p - 2*p*p*p;
+// }
  
 function ease(p, g) {
   if (p < 0.5) 
@@ -40,7 +41,7 @@ function draw() {
  
     c = 0;
     for (let sa=0; sa<samplesPerFrame; sa++) {
-	    t = map(frameCount-1 + sa*shutterAngle/samplesPerFrame, 0, numFrames, 0, 1);
+	    t = map(frameCpt-1 + sa*shutterAngle/samplesPerFrame, 0, numFrames, 0, 1);
      	draw_();
      	buffer.loadPixels();
       for (let i=0; i<buffer.pixels.length; i++) {
@@ -63,7 +64,8 @@ function draw() {
  
     // saveFrame("fr###.png");
     // println(frameCount,"/",numFrames);
-    if (frameCount==numFrames) {
+    frameCpt++;
+    if (frameCpt==numFrames) {
     	console.log('exit');
     	noLoop();
   	}
@@ -71,27 +73,11 @@ function draw() {
   image(buffer,0,0);
 }
 //
-
-//------
-class Particule {
-	constructor() {
-		this.x = random(100, width-100);
-		this.y = random(100, height-100);
-		this.r = random(3,20);
-		this.s = random(1,2.5);
-		this.o = 9*noise(0.02*this.x, 0.02*this.y); //random(0,TWO_PI);
-	}
-
-	show() {
-		stroke(255,200);
-		strokeWeight(this.s);
-		point(this.x +this.r *cos(t*TWO_PI+this.o), this.y+this.r*sin(t*TWO_PI+this.o) );
-	}
-}
-//----------------------------
+//----------------------------------------------------------------
 let samplesPerFrame = 5;
-let numFrames = 50;        
+let numFrames = 60;        
 let shutterAngle = 1.5;
+let frameCpt = 0;
  
 let recording = true;
 let objets = [];
@@ -100,11 +86,16 @@ let choix='Point';
  
 function reStart() {
 	t=0;
+	frameCpt = 0;
 	loop();
 }
 
 function checkBChange() {
 	recording = this.checked;
+}
+
+function easeBChange() {
+	easy = this.checked();
 }
 
 function newSel() {
@@ -119,8 +110,17 @@ function initObjet() {
 			objets.push(new Point);
 			break;
 		case 'Particules' :
+			nbO = 1000;
 			for (let i = 0; i<nbO; i++) {
 				let obj = new Particule();
+  				objets.push(obj);
+  			}
+			break;
+		case 'Cercle' :
+			nbO = 100;
+			for (let i = 0; i<nbO; i++) {
+				let a = i/nbO*TWO_PI;
+				let obj = new Cercle(a);
   				objets.push(obj);
   			}
 			break;
@@ -139,12 +139,16 @@ function setup(){
 	checkB = createCheckbox('Recording',recording);
 	checkB.changed(checkBChange);
 
+	easeB = createCheckbox('Easy Fct',recording);
+	easeB.changed(easeBChange);
+
 	startB = createButton('Re-Start');
 	startB.mousePressed(reStart);
 
 	liste = createSelect();
 	liste.option('Point');
 	liste.option('Particules');
+	liste.option('Cercle');
 	liste.changed(newSel);
 }
  
@@ -158,7 +162,7 @@ function draw_(){
 	}
 }
 
-
+//---------------------
 class Point {
 	constructor() {
 
@@ -167,6 +171,43 @@ class Point {
 	show() {
 		stroke(255);
 		strokeWeight(10);
-		point(250+50*cos(TWO_PI*t),250+50*sin(TWO_PI*t));
+		let t2 = easy?ease(t,3.0):t;
+		point(250+50*cos(TWO_PI*t2),250+50*sin(TWO_PI*t2));
+	}
+}
+//----------------------
+class Particule {
+	constructor() {
+		this.x = random(100, width-100);
+		this.y = random(100, height-100);
+		this.r = random(3,20);
+		this.s = random(1,2.5);
+		this.o = 9*noise(0.02*this.x, 0.02*this.y); //random(0,TWO_PI);
+	}
+
+	show() {
+		stroke(255,200);
+		strokeWeight(this.s);
+		let t2 = easy?ease(t,3.0):t;
+		point(this.x +this.r *cos(t2*TWO_PI+this.o), this.y+this.r*sin(t2*TWO_PI+this.o) );
+	}
+}
+//---------------------
+class Cercle {
+	constructor(angle) {
+		this.o = random(0,0.6);
+		this.s = random(1,5);
+		this.theta = angle;
+
+	}
+
+	show() {
+		stroke(255,200);
+		strokeWeight(this.s);
+		let t2 = easy?ease(t,3.0):t;
+		this.r = width/4 + width/8*sin(TWO_PI*t2 + this.o);
+		let x = width/2 + this.r*cos(this.theta); 
+		let y = height/2 + this.r*sin(this.theta); 
+		point(x,y);
 	}
 }
