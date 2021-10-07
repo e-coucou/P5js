@@ -6,7 +6,7 @@ let nbTrame = 170;
 let time , inc;
 let offsetY = 300;
 let offsetX ;
-let byLigne = 30;
+let byLigne = 50;
 let timeB;
 
 
@@ -40,7 +40,7 @@ function draw() {
 	time += inc;
 	if (frameCount>40) {
 		timeB += inc/2;
-		for ( let k=0;k<5;k++) {
+		for ( let k=0;k<10;k++) {
 			if( notFall.length>0) {
 				l = floor(random(notFall.length));
 				// if (carres[notFall[l]].fall) console.log('erreur');
@@ -97,7 +97,7 @@ class Carre {
 		let y2 = 6+(offsetY + this.r+ this.s) * sin(-this.time);
 		push();
 		fill(255);
-		noStroke();
+		stroke(255);
 		beginShape();
 		vertex(this.x[3],y1);
 		vertex(this.x[2],y1);
