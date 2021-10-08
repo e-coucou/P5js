@@ -1,29 +1,34 @@
 const size=5;
-let rotX = 1/3;
 let nb;
 let carres = [], notFall = [];
-let nbTrame = 170;
+let nbTrame = 200;
 let time , inc;
-let offsetY = 300;
+let offsetY = 150;
 let offsetX ;
-let byLigne = 50;
-let timeB;
+let byLigne = 40;
+let timeB, t2;
 
+function ease(p, g) {
+  if (p < 0.5) 
+    return 0.5 * pow(2*p, g);
+  else
+    return 1 - 0.5 * pow(2*(1 - p), g);
+}
 
 function setup() {
 	createCanvas(400,400);
 	offsetX = width/2;
-	time = -PI/2;
+	t2 = -PI/5.5; time=t2;
 	timeB = time;
-	inc = HALF_PI/nbTrame;
+	inc = PI/2.5/nbTrame;
 	let l1 = width*1.3;
 	for(let j = 0; j<byLigne;j++) {
 		let l2 = l1 -size*1.1;
 		for (let i =0;i<byLigne;i++) {
 			let x=[];
-			x[0] = i*(l1/byLigne)+offsetX-l1/2+3;
+			x[0] = i*(l1/byLigne)+offsetX-l1/2+5;
 			x[1] = (i+1)*(l1/byLigne)+offsetX-l1/2;
-			x[3] = i*(l2/byLigne)+offsetX-l2/2+3;
+			x[3] = i*(l2/byLigne)+offsetX-l2/2+5;
 			x[2] = (i+1)*(l2/byLigne)+offsetX-l2/2;
 			let carre = new Carre(x,PI/24,size,width/3-(j*size));
 			carres.push(carre);
@@ -33,14 +38,16 @@ function setup() {
 	}
 }
 
+let countTRame=0;
 
 function draw() {
-	// frameRate(40);
+	// frameRate(10);
 	background(0);
-	time += inc;
-	if (frameCount>40) {
-		timeB += inc/2;
-		for ( let k=0;k<10;k++) {
+	t2 += inc;
+	time = ease(t2,3.0);
+	if (frameCount>50) {
+		timeB += inc/3;
+		for ( let k=0;k<15;k++) {
 			if( notFall.length>0) {
 				l = floor(random(notFall.length));
 				// if (carres[notFall[l]].fall) console.log('erreur');
@@ -55,8 +62,20 @@ function draw() {
 		carres[i].show();
 	}
 	// if (time > 0 || time < -HALF_PI) noLoop(); //inc = -inc;
-	if (frameCount === nbTrame) {noLoop();}
+	countTRame++;
+	if (frameCount === nbTrame) {
+			noLoop();
+	// time = -PI/6;
+	// timeB = time;
+	// inc = PI/3/nbTrame;
+	// countTRame=0;
+	// for (let i=0;i<byLigne*byLigne;i++){
+	// 	carres[i].fall=false;
+	// 	notFall[i]=i;
+	// }
+		}
 	// console.log(frameCount);
+	// saveFrames('pict#');
 }
 
 
@@ -75,7 +94,7 @@ class Carre {
 	toFall() {
 		this.fall = true;
 		let c = abs((-HALF_PI - time) / (nbTrame - frameCount));
-		this.inc = random(c,c*5);
+		this.inc = random(c*0.4,c);
 
 	}
 
@@ -93,11 +112,11 @@ class Carre {
 	}
 
 	show() {
-		let y1 = 10+(offsetY + this.r) * sin(-this.time );
-		let y2 = 6+(offsetY + this.r+ this.s) * sin(-this.time);
+		let y1 = 180+(offsetY + this.r) * sin(-this.time );
+		let y2 = 175+(offsetY + this.r+ this.s) * sin(-this.time);
 		push();
 		fill(255);
-		stroke(255);
+		stroke(255,10);
 		beginShape();
 		vertex(this.x[3],y1);
 		vertex(this.x[2],y1);
