@@ -7,16 +7,17 @@ class Ship {
 		this.rot = 0;
 		this.boost = false;
 		this.life = 100;
+		this.hit = false;
 	}
 
 	isHit(astre) {
-		let hit = false;
+		this.hit = false;
 		let d = dist(this.pos.x,this.pos.y,astre.pos.x,astre.pos.y);
 		if (d < this.r+astre.rI) {
-			hit = true;
+			this.hit = true;
 			this.life -= astre.rI / 20;
 		}
-		return hit;
+		return this.hit;
 	}
 
 	setRotation(a) {
@@ -52,7 +53,7 @@ class Ship {
 		let c = color(e,10,255-e);
 		push();
 		translate(this.pos.x, this.pos.y);
-		fill(c); noStroke(); //stroke(255);
+		fill(this.hit?color(255,255,255):c); noStroke(); //stroke(255);
 		beginShape();
 		rotate(this.direction +PI/2);
 		vertex(0,0);
