@@ -10,6 +10,7 @@ function mousePressed() {
 
 function draw() {
 	// background(255,20,147,1);
+	// frameRate(1);
 	background(0);
 
 	for (let p of particules) {
@@ -26,13 +27,15 @@ class Particule {
 	constructor(x,y) {
 		this.pos = createVector(x,y);
 		this.vel = createVector(random(-3,3),random(-3,3));
-		this.history= [];
+		this.trend= [];
 	}
 
 	update() {
 		this.pos.add(this.vel);
-		this.history.push(this.pos);
-		if (this.history.length > 200) this.history.splice(0,1);
+		this.trend.push(createVector(this.pos.x, this.pos.y));
+		if (this.trend.length > 20) {
+			this.trend.splice(0,1);
+		}
 	}
 
 	edge() {
@@ -44,8 +47,9 @@ class Particule {
 		stroke(255);
 		strokeWeight(3);
 		point(this.pos.x,this.pos.y);
-		stroke(200);
-		for (let p of this.history) {
+		let i=0;
+		for (let p of this.trend) {
+			stroke(200 & (10*i++));
 			point(p.x,p.y);
 		}
 	}
