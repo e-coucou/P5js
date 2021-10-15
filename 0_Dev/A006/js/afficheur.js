@@ -2,7 +2,7 @@
 class Afficheur {
 	constructor(x,y,w,n) {
 		this.w = w;
-		this.h = w/8;
+		this.h = w/3;
 		this.n=n;
 		this.x=x;
 		this.y=y;
@@ -40,7 +40,7 @@ class Afficheur {
 		}
 	}
 	affiche(num) {
-		const itX = floor(this.w+3*this.h);
+		const itX = floor(this.w+3*this.h)+3;
 		const decX =floor(this.n*itX)/2; //+this.n*2;
 		const decY = floor((this.w * 2 + this.h *3)/2) +1;
 		for (let i=0;i<this.n;i++) {

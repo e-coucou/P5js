@@ -30,7 +30,7 @@ function setup() {
 	for (let i = 0; i< 5; i++) {
 		asteroides.push(new Asteroide());
 	}
-	scoreA = new Afficheur(width-55,20,14,4);
+	scoreA = new Afficheur(width-60,20,8,4);
 }
 
 function draw() {
@@ -78,4 +78,8 @@ function draw() {
 		console.log('WINNNNNNNNNNER');
 		noLoop();
 	}
+	if (ship.life<=0) {
+		console.log('LOOOOOOOOSER');
+		noLoop();
+	} 
 }
