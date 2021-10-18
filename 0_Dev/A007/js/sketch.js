@@ -1,7 +1,7 @@
 let rand = [];
 let sorted = [];
 let i = 0, j=0;
-let scale = 5;
+let scale = 2;
 let states = [];
 let permutations = 0; let read=0;
 let divText;
@@ -13,28 +13,20 @@ function setup() {
 	divText.style('color','white');
 	divText.position(10,2);
 	for (let i = 0; i< width/scale;i++) {
-		// rand[i] = noise(i/100)*height;
-		rand[i] = random(height);
+		rand[i] = noise(i/100)*height;
+		// rand[i] = random(height);
 		states[i] = 0;
 	}
 //sort ...
 // by processing
 //	rand = sort(rand);
 
-// bubble
-	// for( let i=0; i< rand.length;i++) {
-	// 	for(let j = 0; j< rand.length-i-1; j++) {
-	// 		let a = rand[j];
-	// 		let b = rand[j+1];
-	// 		if (a>b) swap(rand,j,j+1);
-	// 	}
-	// }
 	quickSort(rand,0,rand.length-1);
 
 }
 
 async function swap (arr,i,j) {
-	await sleep(10);
+	// await sleep(1);
 	let temp = arr[i];
 	arr[i] = arr[j];
 	arr[j] = temp;
@@ -83,18 +75,6 @@ function draw() {
 	background(51);
 	fill(255); noStroke();
 	divText.html('#valeurs: '+width/scale+'<hr>'+'Permutions: '+permutations+'<br>'+'accès: '+read);
-
-	// for(let j = 0; j< rand.length-i-1; j++) {
-	// 	let a = rand[j];
-	// 	let b = rand[j+1];
-	// 	if (a>b) swap(rand,j,j+1);
-	// }
-	// i++;
-	// if (i>rand.length) {
-	// 	noLoop();
-	// 	fill(0,0,255);
-	// 	stroke(0,0,255);		
-	// }
 
 	for(let i = 0; i< rand.length;i++) {
 		switch (states[i]) {
