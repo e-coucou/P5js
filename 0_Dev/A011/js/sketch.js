@@ -22,9 +22,10 @@ function draw() {
 		for (b of branches) {
 			b.show();
 			if (b.level === iter) {
-				base = b.next();
-				bases.push(base[0]);
-				bases.push(base[1]);
+				bases = bases.concat(b.next());
+				// base = b.next();
+				// bases.push(base[0]);
+				// bases.push(base[1]);
 			}
 		}
 		iter++;
@@ -65,13 +66,19 @@ class Branche {
 	}
 
 	next() {
-		let l1 = this.l*this.scale * random(8,10)/9.2;
-		let l2 = this.l*this.scale * random(8,10)/9.2;
-		let e1 = this.e * random(65,90) / 100;
-		let e2 = this.e * random(65,90) / 100;
-		let a1 = this.a-angle - (random()>=0.5)*this.asym;
-		let a2 = this.a+angle + (random()>=0.5)*this.asym;
-		return [ {a: a1 ,l: l1,e: e1 ,pos:this.p2}, {a: a2,l: l2, e:e2 ,pos:this.p2}];
+		let nb = 2; //floor(random(3,3));
+		let li =[], ei = [], ai = [];
+		let ret = [];
+		for (let i=0;i<nb;i++) {
+			li.push(this.l*this.scale * random(8,10)/9.2);
+			// let l2 = this.l*this.scale * random(8,10)/9.2;
+			ei.push(this.e * random(65,90) / 100);
+			// let e2 = this.e * random(65,90) / 100;
+			ai.push(this.a+(-1+(i%2)*2)*angle + (-1+(i%2)*2 )*(random()>=0.5)*this.asym);
+			// let a2 = this.a+angle + (random()>=0.5)*this.asym;
+			ret.push({a: ai[i] ,l: li[i],e: ei[i] ,pos:this.p2});
+		}
+		return ret;
 	}
 
 	jitter() {

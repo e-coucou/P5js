@@ -53,13 +53,14 @@ class Ship {
 		let c = color(e,10,255-e);
 		push();
 		translate(this.pos.x, this.pos.y);
-		fill(this.hit?color(255,255,255):c); noStroke(); //stroke(255);
-		beginShape();
 		rotate(this.direction +PI/2);
-		vertex(0,0);
-		vertex(-this.r/3,this.r);
-		vertex(this.r/3,this.r);
-		endShape(CLOSE);
+		// fill(this.hit?color(255,255,255):c); noStroke(); //stroke(255);
+		// beginShape();
+		// vertex(0,0);
+		// vertex(-this.r/3,this.r);
+		// vertex(this.r/3,this.r);
+		// endShape(CLOSE);
+		image(imgShip,-18,-17,36,35);
 		pop();
 	}
 }
