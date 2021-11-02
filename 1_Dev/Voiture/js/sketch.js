@@ -34,6 +34,7 @@ function keyPressed() {
 
 function draw() {
 	background(255);
+	voiture.edges();
 	voiture.update();
 	voiture.affiche();
 }
@@ -45,8 +46,8 @@ class Voiture {
 		this.pos = createVector(random(width),random(height));
 		this.vit = createVector(0,0);
 		this.acc = createVector(0,0);
-		this.sizeX = 480;
-		this.sizeX = 240;
+		this.sizeX = 120;
+		this.sizeY = 60;
 	}
 
 	update() {
@@ -59,11 +60,17 @@ class Voiture {
 		this.acc.add(force);
 	}
 
+	edges() {
+		if( this.pos.x > width-this.sizeX || this.pos.x <0) { this.vit.x *= -1;}
+		if( this.pos.y > height-this.sizeY/2 || this.pos.y <this.sizeY/2) { this.vit.y *= -1;}
+	}
+
 	affiche() {
 		push();
-		translate(this.pos.x,this.pos.y);
+		translate(this.pos.x,this.pos.y-this.sizeY/2);
 		if(this.vit.x>0) {
 			scale(-1,1);
+			translate(-this.sizeX,0);
 			image(imgCT,0,0,this.sizeX,this.sizeY);
 		} else {
 			image(imgCT,0,0,this.sizeX,this.sizeY);
