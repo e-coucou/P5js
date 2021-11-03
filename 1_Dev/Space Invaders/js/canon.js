@@ -34,7 +34,7 @@ class Canon {
 	}
 
 	show() {
-		stroke(255)
+		stroke(210,255,255); fill(210,255,255);
 		beginShape();
 		vertex(this.x,this.y);
 		vertex(this.x+this.r,this.y+20);
@@ -48,7 +48,7 @@ class Canon {
 class Laser {
 	constructor(pos_) {
 		this.pos = pos_;
-		this.vel = createVector(0,-5);
+		this.vel = createVector(0,-10);
 		this.out = false;
 	}
 
@@ -61,7 +61,7 @@ class Laser {
 	}
 
 	show() {
-		stroke(255,0,0);
+		stroke(0,255,255);
 		strokeWeight(3);
 		line(this.pos.x,this.pos.y,this.pos.x,this.pos.y-5);
 	}
@@ -79,7 +79,7 @@ class Bunker {
 	}
 
 	show() {
-		fill(255);
+		fill(100);
 		rect(this.pos.x, this.pos.y,this.w,this.w);
 	}
 }
