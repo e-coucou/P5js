@@ -29,7 +29,7 @@ class Canon {
 	tir() {
 		if (!this.isTir) {
 			this.isTir = true;
-			this.laser = new Laser(createVector(this.x,this.y-20));
+			this.laser = new Laser(createVector(this.x,this.y-10));
 		}
 	}
 
@@ -48,7 +48,7 @@ class Canon {
 class Laser {
 	constructor(pos_) {
 		this.pos = pos_;
-		this.vel = createVector(0,-10);
+		this.vel = createVector(0,-4);
 		this.out = false;
 	}
 
@@ -63,7 +63,7 @@ class Laser {
 	show() {
 		stroke(0,255,255);
 		strokeWeight(3);
-		line(this.pos.x,this.pos.y,this.pos.x,this.pos.y-5);
+		line(this.pos.x,this.pos.y,this.pos.x,this.pos.y-3);
 	}
 }
 
@@ -76,10 +76,22 @@ class Bunker {
 	constructor(pos_) {
 		this.pos = pos_;
 		this.w = width /9;
+		this.h = width /11;
 	}
 
 	show() {
-		fill(100);
-		rect(this.pos.x, this.pos.y,this.w,this.w);
+		fill(0,0,255);
+		beginShape();
+		vertex(this.pos.x,this.pos.y+this.h);
+		vertex(this.pos.x+this.w/4,this.pos.y+this.h);
+		vertex(this.pos.x+this.w/4,this.pos.y+4/5*this.h);
+		vertex(this.pos.x+this.w*3/4,this.pos.y+4/5*this.h);
+		vertex(this.pos.x+this.w*3/4,this.pos.y+this.h);
+		vertex(this.pos.x+this.w,this.pos.y+this.h);
+		vertex(this.pos.x+this.w,this.pos.y+1/5*this.h);
+		vertex(this.pos.x+4/5*this.w,this.pos.y);
+		vertex(this.pos.x+1/5*this.w,this.pos.y);
+		vertex(this.pos.x,this.pos.y+1/5*this.h);
+		endShape(CLOSE);
 	}
 }

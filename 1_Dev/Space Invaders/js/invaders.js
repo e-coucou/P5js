@@ -21,7 +21,7 @@ class Invader {
 	}
 
 	show() {
-		fill(200);
+		fill(150,255,255); noStroke();
 		// if (this.touche) fill(255,0,0);
 		square(this.pos.x-this.s/2,this.pos.y-this.s/2,this.s);
 	}
