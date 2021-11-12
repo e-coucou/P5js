@@ -43,26 +43,38 @@ function uColor(id, k) {
 
 function setup() {
   // createCanvas(windowWidth,windowHeight);
-  createCanvas(640, 240);
+  createCanvas(720, 240);
   console.log("%c (ツ) # eCoucou " + eC.version + " # ", "background: #f00; color: #fff");
 
+  let yc = 10;
   FloydButton = createButton('Floyd');
   FloydButton.mousePressed(floyd);
+  FloydButton.position(642, yc);
+  yc += 30;
   JarvisButton = createButton('Jarvis');
   JarvisButton.mousePressed(jarvis);
+  JarvisButton.position(642, yc);
+  yc += 30;
   StuckiButton = createButton('Stucki');
   StuckiButton.mousePressed(stucki);
+  StuckiButton.position(642, yc);
+  yc += 30;
   AtkinsonButton = createButton('Atkinson');
   AtkinsonButton.mousePressed(atkinson);
+  AtkinsonButton.position(642, yc);
+  yc += 30;
   BurkesButton = createButton('Burkes');
   BurkesButton.mousePressed(burkes);
+  BurkesButton.position(642, yc);
   isGray = createCheckbox('Gris', true);
+  isGray.position(642, height - 25);
   levelSlider = createSlider(1, 10, 1);
   f = levelSlider.value();
   colorMode(RGB);
   stroke(255);
   d = pixelDensity(1);
   // img.filter(GRAY);
+  background(0);
   img = original.get();
   image(original, 0, 0);
 }
