@@ -1,30 +1,37 @@
  let canvas;
 
 let gravity;
-let points = [];
-let inter = 20;
+let emetteurs = [];
 
+let x,y, r=300, phi;
+
+function mousePressed() {
+    emetteurs.push(new Emetteur(mouseX,mouseY));
+}
 function setup() {
-    canvas = createCanvas(600, 800);
+    canvas = createCanvas(600, 400);
     canvas.parent('sketch-XXX');
-    gravity = createVector(0,0.05);
+    gravity = createVector(0,0.15);
     colorMode(HSB);
-    for (let i=0; i<10 ; i ++) {
-        points.push(new Particule(300, inter*i));
-    }
+    phi = -PI/4*3;
 }
 
 function draw() {
     background(0);
 
-    if (mouseIsPressed) {
-        points[points.length-1].pos.set(mouseX,mouseY);
-        points[points.length-1].vel.set(0,0);
+    if (phi<=-PI/3 && frameCount%10 === 0) {
+        phi += PI/30;
+        x = r * cos(phi) + width/2;
+        y = r * sin(phi) + height;
+        emetteurs.push(new Emetteur(x,y));
     }
 
-    for (p of points) {
-        p.applyForce(gravity);
-        p.update();
-        p.show();
+    for (let e of emetteurs) {
+        if( e.life < 200 && frameCount % 2 === 0) e.emet(floor(e.life/80));
+        e.update();
+        e.show();
     }
+
+    emetteurs = emetteurs.filter(e=> e.isAlive());
+
 }
