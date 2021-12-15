@@ -1,0 +1,5 @@
+{
+    "files.autoSave": "onFocusChange",
+    "editor.bracketPairColorization.enabled": true,
+    "editor.defaultFormatter": "HookyQR.beautify"
+}
