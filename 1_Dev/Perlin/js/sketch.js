@@ -7,19 +7,20 @@ let scale = 20;
 let cols, rows;
 let flow;
 
-let particles = [], nb = 1000;
+let particles = [],
+	nb = 1000;
 
 function setup() {
-	createCanvas(800,600);
-	cols = floor(width/scale);
-	rows = floor(height/scale);
+	createCanvas(800, 600);
+	cols = floor(width / scale);
+	rows = floor(height / scale);
 	background(200);
 	// pixelDensity(1);
-	noiseDetail(4,0.5);
-	for(let i = 0; i<nb;i++) {
+	noiseDetail(4, 0.5);
+	for (let i = 0; i < nb; i++) {
 		particles[i] = new Particule();
 	}
-	flow = new Array(cols*rows);
+	flow = new Array(cols * rows);
 	background(255);
 }
 
@@ -27,11 +28,11 @@ function draw() {
 	// loadPixels();
 	// yOff = 0;
 	yOff = 0;
-	for(let y=0; y<rows;y++) {
+	for (let y = 0; y < rows; y++) {
 		xOff = 0;
-		for(let x=0; x<cols;x++) {
-			let index = (x + y*cols);
-			let r = map(noise(xOff,yOff,zOff),0,1,0,TWO_PI);
+		for (let x = 0; x < cols; x++) {
+			let index = (x + y * cols);
+			let r = map(noise(xOff, yOff, zOff), 0, 1, 0, TWO_PI);
 			let v = p5.Vector.fromAngle(r);
 			flow[index] = v.setMag(0.5);
 			// pixels[index+0] = r;
@@ -53,14 +54,14 @@ function draw() {
 		}
 		yOff += inc;
 	}
-	zOff += inc/20.0;
+	zOff += inc / 20.0;
 	// updatePixels();
 
-	for(let i = 0; i<particles.length;i++) {
+	for (let i = 0; i < particles.length; i++) {
 		particles[i].flow(flow);
 		particles[i].update();
 		particles[i].show();
 		particles[i].bords();
 	}
-  // noLoop();
+	// noLoop();
 }
