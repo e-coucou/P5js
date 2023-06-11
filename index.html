@@ -4,49 +4,33 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>eCoucou Main Page</title>
-  <link type="text/css" rel="stylesheet" href="../css/colorBrewer.css">
   <style>
-    @import url(../css/ep.css);
+    @import url(../css/menu.css);
 #chart {
 /*  margin-left: 0px;
   margin-right: 20px;
   margin-top: 50px;
   height: 506px;*/
   margin: auto;
-  background: #B0C4DE;/*rgba(100 ,149 ,237, 0.8);*/
-  color: #ffcbcb;
+  background: #27548f;/*rgba(100 ,149 ,237, 0.8);*/
+  color: #d3ea6c;
 }
   </style>
   <head>
-    <title>Main</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js" ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.js" ></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
-<!--      <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script> 
-       <script src="../../lib/js/opensimplexnoise.js"></script>
-       <script src="js/sketch.js"></script>
--->    
-    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <title>Mainn Menu</title>
   </head>
    <body style="margin: 0; overflow: hidden;">
-    <div id="chart"></div>
-    <script>
-      var margin = {top: 30, right: 20, bottom: 20, left: 30},
-        width = window.innerWidth - margin.right - margin.left,
-        height = window.innerHeight - margin.top - margin.bottom;
-    // Create the SVG container and set the origin.
-      var svg = d3.select("#chart").append("svg")
-        .attr("width", width )
-        .attr("height", height)
-        .attr("position", 2)
-        .append("g")
-          .attr("transform", "translate(" + (margin.left) + "," + (margin.top) + ")");
 
-      d3.json("data/app.json").then(function(app) {
-         var gLib = svg.selectAll('g').data(app).enter().append('g').attr('transform', (d,i) => { return 'translate(20,'+i*15+')';});
+     <div id="galerie-menu">
+               <!-- Notre navigation -->
+ 	 <nav>
+ 		<a href="./0_dev" tabindex="0" title="En Dev ...!"    ><img src="./img/p5.png"  alt="In Dev"  /></a>
+    <a href="./1_dev" tabindex="1" title="Les applis"    ><img src="./img/logo.jpg"  alt="In Dev"  /></a>
+    <a href="./1_dev/2048" tabindex="2" title="2048"    ><img src="./img/2048.png"  alt="In Dev"  /></a>
+ 	 </nav>
+     </div>
 
-         var lib = gLib.append('text').text(d=>d.name);
-      });
-    </script>
+     <p>eCoucou</p>
+
    </body>
 </html>

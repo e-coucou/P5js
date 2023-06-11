@@ -1,11 +1,11 @@
 #galerie-menu
 {
 	height:300px;
-	width:670px;
+	width:100%;
 	margin:3em auto;
 	border:solid;
 	border-radius:5px;
-	box-shadow:1px 1px 3px gray;
+	box-shadow:1px 1px 3px rgb(57, 49, 122);
 	text-align:right;
 	position:relative;
 	white-space:nowrap;
@@ -16,21 +16,21 @@
 	display:inline-block;
         vertical-align:top;
 	width:30px;
-	height:300px;
+	height:400px;
 	overflow:hidden;
 	position:relative;
 	z-index:1;
-	box-shadow:0 0 15px white;
-	transition:1s;
+	box-shadow:0 0 15px rgb(186, 104, 104);
+	transition:2s;
 }
 #galerie-menu a:hover , #galerie-menu a:focus
 {
-	width:400px;
+	width:100%;
 	transition:1s;
 }
 #galerie-menu a:first-child
 {
-	width:400px;
+	width:100%;
 	position:absolute;
 	top:0;
 	left:0;
@@ -41,14 +41,14 @@
 	content:attr(title);
 	text-align:center;
 	height:30px;
-	width:300px;
+	width:100%;
 	position:absolute;
 	bottom:0;
 	left:0;
 	padding-right:100px;
 	font-size:30px;
 	color:white;
-	border:1px solid gray;
+	border:1px solid rgb(48, 52, 128);
 	box-shadow:0 0 15px white;
 	background:rgba(0,0,0,0.3);
 	transform:rotate(-90deg);
