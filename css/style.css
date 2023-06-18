@@ -1,0 +1,12 @@
+
+p {
+    background-color: aqua;
+}
+img {
+    max-width: 150px;
+    margin: 10px;
+}
+
+img :hover {
+    zoom: 2;
+}
