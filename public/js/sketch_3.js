@@ -30,6 +30,7 @@ let btnElo, btnComp;
 let y0,y1;
 let mouseVisible = false;
 let btnVisible = 0;
+let infoDiv;
 
 function windowResized(){
 	resizeCanvas(windowWidth,windowHeight);
@@ -79,12 +80,19 @@ function init_sel() {
 	}
 }
 function setup() {
-	createCanvas(windowWidth,windowHeight);
+	createCanvas(windowWidth/2,windowHeight/2);
 	// createCanvas(800,800);
 	console.log("%c (ツ) # eCoucou "+eC.version+" # ","background: #f00; color: #fff");
 
-	btnComp = createButton('Comp.',sort_comp);
-	btnElo = createButton('Elo',sort_elo);
+	btnComp = createButton('By Challenges.',sort_comp);
+	btnComp.parent('comp');
+	btnComp.mousePressed(sort_comp);
+	btnElo = createButton('By Elo',sort_elo);
+	btnElo.parent('elo');
+	btnElo.mousePressed(sort_elo);
+
+	infoDiv = createDiv('');
+	infoDiv.parent('info');
 
 	frameRate(1);
 }
@@ -97,23 +105,24 @@ function challenge() {
 	// g = random(sel);
 	sel.splice(g,1);
 	d = random(sel);
+	infoDiv.html('Gauche= '+g+'['+voitures[g].comp+']'+' ELO['+round(voitures[g].elo)+']'+', Droite= '+d+'['+voitures[d].comp+']'+' ELO['+round(voitures[d].elo)+']');
 }
 
 function sort_elo(up = true) {
 	v_sorted = voitures.slice();
 	if (up) {
-		v_sorted = v_sorted.sort( (a,b) => { return a.elo < b.elo; });
+		v_sorted = v_sorted.sort( (a,b) => { return b.elo - a.elo; });
 	} else {
-		v_sorted = v_sorted.sort( (a,b) => { return a.elo > b.elo; });
+		v_sorted = v_sorted.sort( (a,b) => { return a.elo - b.elo; });
 	}
 }
 
 function sort_comp(up = true) {
 	v_sorted = voitures.slice();
 	if (up) {
-		v_sorted = v_sorted.sort( (a,b) => { return a.comp < b.comp; });
+		v_sorted = v_sorted.sort( (a,b) => { return b.comp - a.comp; });
 	} else {
-		v_sorted = v_sorted.sort( (a,b) => { return a.comp > b.comp; });
+		v_sorted = v_sorted.sort( (a,b) => { return a.comp - b.comp; });
 	}
 }
 
@@ -153,10 +162,16 @@ function draw() {
 	// text(voitures[g].elo+' '+voitures[g].comp,10,w+20);
 	// text(voitures[d].elo+' '+voitures[d].comp,4*w/3+10,w+20);
 	y1 = y0 + width*0.1+10;
+	textSize(10);
+	textAlign(CENTER);
+	fill(255);
 	for (let i=0; i<voitures.length;i++) {
 		let y = floor(i/10);
 		let x = i%10;
 		image(img[v_sorted[i].idx],x*width/10,y1+y*width/r/10,width/10,width/r/10,250,180,1024/2,768/2);
+		text(round(v_sorted[i].elo),(x+0.2)*width/10,y1+(y+0.2)*width/r/10);
+		text(round(v_sorted[i].comp),(x+0.8)*width/10,y1+(y+1)*width/r/10);
+		// console.log(x,y);
 	}
 	if (mouseVisible) {
 		fill(255);

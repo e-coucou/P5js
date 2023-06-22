@@ -2,6 +2,7 @@ var express = require('express');
 
 var app = express();
 var cors = require('cors');
+require('dotenv').config();
 
 var server = app.listen(3000);
 
