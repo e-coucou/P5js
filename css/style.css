@@ -6,7 +6,7 @@ body {
     margin: 0px;
 }
 header {
-    background-color: rgb(21, 153, 32);
+    background-color: rgb(8, 64, 13);
     top: 0;
     left: 0;
     width: 100%;
@@ -28,7 +28,7 @@ nav ul li {
     padding: 20px;
 }
 nav ul li:hover {
-    background-color: rgb(21, 153, 32);
+    background-color: rgb(8, 64, 13);
 }
 main {
     padding-top: 80px;
@@ -36,7 +36,7 @@ main {
     margin-bottom: 60px;
 }
 footer {
-    background-color: rgb(21, 153, 32);
+    background-color:  rgb(8, 64, 13);
     color: aliceblue;
     position: fixed;
     bottom: 0;
@@ -67,16 +67,16 @@ img {
     width: 100px;
     height: 100px;
     margin: 2px;
-    filter:blur(2px);
+    filter:blur(0px);
     filter: brightness(-3);
     z-index: -1;
 }
 img:hover {
-    filter: blur(0px);
+    filter: blur(2px);
 }
 
 a:hover {
-    background-image: rgb(196, 199, 255);
+    background-image: rgb(218, 78, 174);
     filter: blur(0px);
     /* width: 104px; */
     margin: 0px;
