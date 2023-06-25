@@ -64,12 +64,12 @@ function draw() {
       g = video.pixels[index++];
       b = video.pixels[index++];
       let bright = (r+g+b)/3;
-      let gBright = map(g,0,255,100,260);
+      let gBright = map(g,0,255,100,255);
 
       if (!r || !g || !b) {
-        fill(20,20,20);
+        fill(50,50,50);
       } else {
-       fill(30,g,30,gBright);
+       fill(100,g,100,gBright);
       }
       symbol.render();
       // text(symbol.value,symbol.x,symbol.y);

@@ -32,8 +32,8 @@ function draw() {
         // text(num, x, y)
         // stroke(120);
         // line(px,py,x,y)
-        noStroke;
-        // stroke(255);
+        // noStroke;
+        stroke(255);
         fill(255);
         if (estPrime(num)) {
             circle(x,y,inc);

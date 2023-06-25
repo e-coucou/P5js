@@ -37,7 +37,7 @@ function draw() {
 	let f = flocons[selId];
 	push();
 	translate(3*cols*w/2-f.pos.x,rows*w/2-f.pos.y);
-	// scale(2,2);
+	// scale(2,-2);
 	f.show();
 	pop();
 }

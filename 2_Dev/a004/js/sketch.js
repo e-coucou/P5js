@@ -66,7 +66,7 @@ function nextAuto() {
 }
 
 function setup() {
-    canvas = createCanvas(600, 600);
+    canvas = createCanvas(400, 400);
     canvas.parent('sketch-XXX');
     colorMode(HSB);
     cols = width / dim;

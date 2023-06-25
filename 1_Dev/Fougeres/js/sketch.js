@@ -4,6 +4,7 @@ let c;
 
 function setup() {
     canvas = createCanvas(500,500);
+    canvas.parent("canvas")
     x=0;
     y=0;
     c=color(255,255,255);

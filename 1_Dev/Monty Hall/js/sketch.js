@@ -4,13 +4,15 @@ let etat="CHOIX";
 let choix;
 let ouverte;
 let result, stats;
-let switchBt, keepBt, rePlayBt;
-let nbSwitch=0, nbStay=0, nbWinStay=0, nbWinSwitch=0;
+let bets = [0,0,0];
+let playAlone=false;
+let switchBt, keepBt, rePlayBt, aloneBt;
+let nbSwitch=0, nbStay=0, nbWinStay=0, nbWinSwitch=0, nbPlay=0;
 
 /** This function sets up our sketch. */
 function setup() {
-    // createCanvas(500, 500);
-    noCanvas();
+    canvas = createCanvas(360, 150);
+    // noCanvas();
     for (let i=0; i< nbPortes; i++) {
         portes[i]= createDiv("");
         portes[i].parent("#porte");
@@ -19,6 +21,11 @@ function setup() {
         portes[i].index=i;
     }
 
+    canvas.parent("#canvas");
+
+    aloneBt = createButton("Automatic");
+    aloneBt.mousePressed(alone);
+    aloneBt.parent("#alone");
     switchBt = createButton("Change");
     switchBt.mousePressed(change);
     switchBt.hide();
@@ -34,6 +41,11 @@ function setup() {
 
     rejouer();
 }
+
+function alone() {
+    playAlone = !playAlone;
+}
+
 function rejouer() {
     etat="CHOIX";
     for (let i=0; i< nbPortes; i++) {
@@ -48,9 +60,14 @@ function rejouer() {
     result.html("");
 }
 
-function choisir() {
+function choisir(auto) {
     if (etat == "CHOIX") {
-        choix =this;
+        if (auto) {
+            choix=random(portes);
+        } else {
+            choix =this;
+        }
+        bets[choix.index] += 1;
         choix.style('background-color','#8ff');
         etat = "SECOND";
         openPorte();
@@ -113,7 +130,45 @@ function victoire(isSwitch) {
 
     let statSW = nbWinSwitch/nbSwitch * 100;
     let statStay = nbWinStay/nbStay * 100;
+    nbPlay += 1;
 
-    stats.html("Switch rate: "+nf(statSW,0,1)+"<br>"+"Stay rate: "+nf(statStay,0,1));
+    stats.html("Switch rate: "+nf(statSW,0,1)+"%<br>"+"Stay rate: "+nf(statStay,0,1)+"%<br>Play: #"+nf(nbPlay,0,0)+"");
     rePlayBt.show();
+
+}
+
+function statistics() {
+    let w = width/3-20;
+    for (let i=0;i<3;i++) {
+        noStroke();
+        fill(25,200,30);
+        let x = i*(w+20) +10;
+        let y = height * (0.7-bets[i]/nbPlay);
+        rect(x,y,w,height-y);
+        textAlign(CENTER,CENTER);
+        fill(255);
+        textSize(32);
+        text(bets[i],x+w/2,height*2/3);
+    }
+}
+
+function draw() {
+    background(240);
+    if (nbPlay>1) { statistics();}
+    if (playAlone) {
+        if (etat=="CHOIX") {
+            choisir('auto');
+        }
+        if (etat=="SECOND") {
+            let i = random();
+            if (i>0.49999) {
+                change();
+            } else {
+                garde();
+            }
+        }
+        if (etat=="FIN") {
+            rejouer();
+        }
+    }
 }
