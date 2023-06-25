@@ -2,12 +2,15 @@ let total = 1000;
 let particules = [];
 
 function setup() {
-	createCanvas(900,600);
+	canvas = createCanvas(900,600);
 	// for(let i = 0; i<500; i++) {
 		// let p = new Point(random(width),random(height));
 		// qt.insert(p);
 	// }
 	// console.log(qt);
+
+	canvas.parent("canvas");
+	
 	for( let i=0;i<total;i++) {
 		particules[i] = new Particule(random(width),random(height));
 	}

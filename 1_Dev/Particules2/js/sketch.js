@@ -1,7 +1,9 @@
 let particules = [];
 
 function setup() {
-	createCanvas(600,400);
+	canvas = createCanvas(600,400);
+
+	canvas.parent("canvas");
 	let p = new Particule();
 	particules.push(p);
 }
@@ -18,10 +20,7 @@ function draw() {
 			particules.splice(i,1);
 		}
 	}
-
 }
-
-
 
 class Particule {
 

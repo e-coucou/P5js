@@ -28,10 +28,10 @@ class Population {
                 this.solution=p;
                 return true;
             }
-            f = floor(f*10000);
-            for (let i=0;i<f;i++) {
-                this.mutable.push(p);
-            }
+            // f = floor(f*10000);
+            // for (let i=0;i<f;i++) {
+            //     this.mutable.push(p);
+            // }
         }
         this.maxScore = max(scores);
         return false;
@@ -39,10 +39,26 @@ class Population {
 
     evolution(m_=0) {
         for (let i=0; i<this.n;i++) {
-            let ptA = random(this.mutable);
-            let ptB = random(this.mutable);
+            // let ptA = random(this.mutable);
+            // let ptB = random(this.mutable);
+            let ptA = this.accept();
+            let ptB = this.accept();
             this.population[i].genes = ptA.cross(ptB).slice(); //newGenes.slice();
             this.population[i].mutation(m_);
+        }
+    }
+
+    accept() {
+        let watchdog =0;
+        while (true) {
+            let id = floor(random(this.n));
+            let p = random(this.maxScore);
+            let pt = this.population[id];
+            if (p<pt.score) {
+                return pt;
+            }
+            watchdog++;
+            if (watchdog>10000) { return null; }
         }
     }
 
